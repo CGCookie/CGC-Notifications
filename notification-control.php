@@ -11,6 +11,38 @@
 * the user's meta.
 **********************************************/
 
+function cgc_notice_register_post_type() {
+
+	$announcement_labels = array(
+		'name' => _x( 'Announce', 'post type general name' ), // Tip: _x('') is used for localization
+		'singular_name' => _x( 'Announcement', 'post type singular name' ),
+		'add_new' => _x( 'Add New', 'Announcement' ),
+		'add_new_item' => __( 'Add New Announcement' ),
+		'edit_item' => __( 'Edit Announcement' ),
+		'new_item' => __( 'New Announcement' ),
+		'view_item' => __( 'View Announcement' ),
+		'search_items' => __( 'Search Announcements' ),
+		'not_found' =>  __( 'No Announcements found' ),
+		'not_found_in_trash' => __( 'No Announcements found in Trash' ),
+		'parent_item_colon' => ''
+	);
+
+	$annoucement_args = array(
+		'labels' => $announcement_labels,
+		'singular_label' => __( 'Announcement' ),
+		'public' => true,
+		'show_ui' => true,
+		'capability_type' => 'post',
+		'hierarchical' => false,
+		'exclude_from_search' => true,
+		'rewrite' => array( 'slug' => 'announcements' ),
+		'supports' => array( 'title', 'editor' ),
+	);
+	register_post_type( 'notices', $annoucement_args );
+
+}
+add_action( 'init', 'cgc_notice_register_post_type' );
+
 function cgc_check_notice_is_read( $post_id, $user_id ) {
 	// this line was just for testing purposes
 	//delete_user_meta(cgc_notice_get_user_id(), 'cgc_notice_posts');
