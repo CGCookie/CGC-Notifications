@@ -134,8 +134,7 @@ function cgc_show_notices() {
 			<?php if(cgc_check_notice_is_read($notice->ID, $user_ID) == false) { ?>
 				<div id="notification-area" class="clearfix">
 					<a class="remove-notice" href="#" id="remove-notice" rel="<?php echo $notice->ID; ?>">hide this notice</a>
-					<img id="notify-avatar" src="<?php bloginfo('stylesheet_directory');?>/images/notify-avatar.png" alt="Notifiy Avatar"/>
-					<div style="width: 80%;"><?php echo wpautop( $notice->post_content ); ?>	</div>
+					<div class="notification-content"><?php echo wpautop( $notice->post_content ); ?>	</div>
 				</div>
 			<?php } ?>
 		<?php
