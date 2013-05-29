@@ -118,3 +118,27 @@ function cgc_notice_mark_as_read() {
 }
 add_action( 'wp_ajax_nopriv_mark_as_read', 'cgc_notice_mark_as_read' );
 add_action( 'wp_ajax_mark_as_read', 'cgc_notice_mark_as_read' );
+
+
+function cgc_show_notices() {
+	/// this displays the notification area if the user has not read it before
+	global $user_ID;
+	$notices = get_transient('cgc_announcements');
+	if($notices === false) {
+		$notice_args = array('post_type' => 'notices', 'posts_per_page' => 1, 'suppress_filters' => true);
+		$notices = get_posts($notice_args);
+		set_transient('cgc_announcements', $notices, 7200);
+	}
+	if($notices) {
+		foreach ($notices as $notice) { ?>
+			<?php if(cgc_check_notice_is_read($notice->ID, $user_ID) == false) { ?>
+				<div id="notification-area" class="clearfix">
+					<a class="remove-notice" href="#" id="remove-notice" rel="<?php echo $notice->ID; ?>">hide this notice</a>
+					<img id="notify-avatar" src="<?php bloginfo('stylesheet_directory');?>/images/notify-avatar.png" alt="Notifiy Avatar"/>
+					<div style="width: 80%;"><?php echo apply_filters('the_content', $notice->post_content); ?>	</div>
+				</div>
+			<?php } ?>
+		<?php
+		}
+	}
+}
