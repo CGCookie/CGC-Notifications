@@ -135,7 +135,7 @@ function cgc_show_notices() {
 				<div id="notification-area" class="clearfix">
 					<a class="remove-notice" href="#" id="remove-notice" rel="<?php echo $notice->ID; ?>">hide this notice</a>
 					<img id="notify-avatar" src="<?php bloginfo('stylesheet_directory');?>/images/notify-avatar.png" alt="Notifiy Avatar"/>
-					<div style="width: 80%;"><?php echo apply_filters('the_content', $notice->post_content); ?>	</div>
+					<div style="width: 80%;"><?php echo wpautop( $notice->post_content ); ?>	</div>
 				</div>
 			<?php } ?>
 		<?php
